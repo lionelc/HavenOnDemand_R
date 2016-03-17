@@ -7,7 +7,7 @@ HODClient <- setClass(
         apikey = "character",
         jobs = "list",
 	    version = "character",
-	    indexes="character"
+	    indexes = "NULL"
         ),
 
         # Set the default values for the slots. (optional)
@@ -15,7 +15,7 @@ HODClient <- setClass(
 	    apikey="",
         jobs=list(),
 	    version = "v1",
-	    indexes=c()
+	    indexes = c()
         ),
 
         # Make a function that can test to see if the data is consistent.
@@ -204,7 +204,7 @@ setMethod(f="postHODAsync",
 	   {
 			print("There is no return from your API call which may be caused by an error. Please check the API name and version: ")
 			print(paste("name: ", jobtype, " version: ", theObject@version, sep=""))
-			return(NULL)
+			return(list(client=theObject, status=FALSE))
 	   }	
 	   #parse the result and get the jobid
 	   require(jsonlite)
@@ -213,7 +213,7 @@ setMethod(f="postHODAsync",
 	   curlist <- setNames(curlist, c(jobname))
 
        theObject@jobs <- merge(theObject@jobs, curlist)
-	   return(theObject)
+	   return(list(client=theObject, status=TRUE))
     }
 )
 

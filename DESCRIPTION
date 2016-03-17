@@ -1,8 +1,9 @@
 Package: HavenOnDemand
-Title: HPC HavenOnDemand for R
-Version: 0.0.0.9000
+Title: HPE HavenOnDemand for R
+Version: 0.1.0.0000
 Authors@R: person("Lei", "Jiang", email = "lionelchange@gmail.com", role = c("aut", "cre"))
-Description: This is the wrapper for R users who have interest in using HPE Haven OnDemand APIs.
-Depends: R (>= 3.2.3), RCurl
-License: What license is it under?
+Description: This is the wrapper for R users who have interest in using HPE Haven OnDemand APIs. It provides a straightforward way for calling the APIs directly from R. The connection between your R client and HPE server side is via POST connections. Once you create a HODClient with your apikey, you can call the corresponding API using postHODSync() or postHODAsync(). It also includes i) text index operations: create, add_text_to, and delete text indexes; and ii) some local operations that help you on track with your indexes and HavenOnDemand jobs (especially the async ones). Please refer to the github page for step-by-step usage. 
+Depends: R (>= 3.0.0), RCurl, jsonlite
+URL: https://github.com/lionelc/HavenOnDemand_R
+License: MIT
 LazyData: true
