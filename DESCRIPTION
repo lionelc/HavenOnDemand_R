@@ -1,0 +1,8 @@
+Package: HavenOnDemand
+Title: HPC HavenOnDemand for R
+Version: 0.0.0.9000
+Authors@R: person("Lei", "Jiang", email = "lionelchange@gmail.com", role = c("aut", "cre"))
+Description: This is the wrapper for R users who have interest in using HPE Haven OnDemand APIs.
+Depends: R (>= 3.2.3), RCurl
+License: What license is it under?
+LazyData: true
