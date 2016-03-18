@@ -69,7 +69,7 @@ For synchronous requests, the results would be returned at once.
 require(jsonlite)
 result_list <- fromJSON(result)
 ```
-A list in R is like a dictionary which is relatively more type-free. As long as you know the response format, you can use "result_list$field_name" to get the corresponding field.
+A list in R is like a dictionary which is relatively more type-free. As long as you know the response format, you can use "result_list$field_name" to get the corresponding field, which should be quite straightforward.
 
 ### Sending asynchronous requests
 
@@ -100,6 +100,75 @@ Check the result (if the job is ready, checkHODStatus() return contains the resu
 ```
 result <- checkHODResult(cl, "job1")
 ```
+
+Lastly, you can (optionally) delete the local job name if you want (using R API delHODJobname(cl, "job1") ). It won't automatically be removed when result is obtained because it is meant to leave the record. You can find the job id anytime using "cl$jobs".
+
+### Text index operations
+
+Text index is an important feature for the API set where you can even reach outside resources from the world wide web (e.g. wiki_eng resources in the "querytextindex" example above). 
+
+#### Creating a user index
+
+```
+combobj <- createHODTextIndex(cl, "index1")
+cl <- combobj$client
+```
+The return is again a combo object that you can find the updated client along with status. 
+
+#### Adding text to a user index
+```
+result <- addHODToTextIndex(cl, "index1", json="localtest.json")
+```
+As in the documentation (https://dev.havenondemand.com/apis/addtotextindex#overview) , you can use json/file/reference as your text source. 
+
+#### Deleting a user index
+The HPE HavenOnDemand API uses a two-step verification to delete an index. In the R wrapper, it is simplified to one call (so use with caution):
+
+```
+combobj <- deleteHODTextIndex(cl, "index1")
+```
+
+### A "Hello World" demo app (from scratch, including installation and everything)
+
+```
+> install_github("lionelc/HavenOnDemand_R")
+> library(HavenOnDemand)
+Loading required package: RCurl
+Loading required package: bitops
+Loading required package: jsonlite
+Warning message:
+package ‘RCurl’ was built under R version 3.2.4 
+> cl <- HODClient(apikey="your_key", version="v1")
+> combobj <- postHODAsync(cl, "querytextindex", "job1", text="California", indexes="wiki_eng", print="all")
+> combobj
+$client
+An object of class "HODClient"
+Slot "apikey":
+[1] "you-key"
+
+Slot "jobs":
+$job1
+[1] "your-job-id"
+
+
+Slot "version":
+[1] "v1"
+
+Slot "indexes":
+NULL
+
+$status
+[1] TRUE
+
+> combobj$status
+[1] TRUE
+> rr <- checkHODStatus(combobj$client, "job1")
+> require(jsonlite)
+> rrlist <- fromJSON(rr)
+> rrlist$status
+[1] "finished"
+```
+
 
 
 
