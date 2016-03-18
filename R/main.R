@@ -159,6 +159,7 @@ setMethod(f="postHODSync",
     }
 )
 
+#posting an async job, the return is a combo object (as a list): the updated HODClient and a status as boolean
 setGeneric(name="postHODAsync",
     def=function(theObject, jobtype, jobname, ..., params=list(), verbose=FALSE)
     {
