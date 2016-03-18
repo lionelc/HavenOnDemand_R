@@ -41,7 +41,7 @@ cl <- setHODApikey(cl, your_apikey)
 cl <- setHODVersion(cl, "v1")
 ```
 
-Note: if you are not a guru in R, please note that it's just the tradition of R for using a style of "cl <- setHODApikey(cl, value)" instead of "cl.setHODApikey(value)". The object-oriented pattern in R unfortunately can't encapsulate methods inside the class. In other APIs of this package, it follows a similar way: the return object would include a client that you can keep the track. 
+Note: if you are not a guru in R, please note that it's just the tradition of R for using a style of "cl <- setHODApikey(cl, value)" instead of "cl.setHODApikey(value)". The customizable object-oriented pattern (namely S4 object system: http://adv-r.had.co.nz/S4.html ) in R unfortunately can't encapsulate methods inside the class. In other APIs of this package, it follows a similar way: the return object would include a client that you can keep the track. 
 
 ### Sending synchronous requests 
 
