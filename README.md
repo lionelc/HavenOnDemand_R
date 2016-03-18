@@ -16,6 +16,12 @@ install.packages("devtools")
 library(devtools)
 install_github("lionelc/HavenOnDemand_R")
 ```
+Or, if installing from local code only,
+
+* Download the code repository as a zip, then unzip locally
+* Launch R, then use setwd() to make your current work directory on the outside folder of the unzipped one (use "ls" and then you see folder HavenOnDemand right there).
+* Get R library "devtools" (as the first two commands in the github install), then use command "install("HavenOnDemand")".
+
 
 ### Importing
 
