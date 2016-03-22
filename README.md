@@ -3,7 +3,7 @@
 ## Description
  This is the wrapper for R users who have interest in using HPE Haven OnDemand APIs. It provides a straightforward way for calling the APIs directly from R. The connection between your R client and HPE server side is via POST request method. Once you create a HODClient with your apikey, you can call the corresponding API using postHODSync() or postHODAsync(). 
  
- Besides, It also includes i) text index operations: create, add_text_to, and delete text indexes; and ii) some local operations that help you on track with your indexes and HavenOnDemand jobs (especially the async ones).
+ Besides, It also includes i) text index operations: create, add_text_to, and delete text indexes; and ii) some local operations that keep you on track with your indexes and HavenOnDemand jobs (especially the async ones).
 
 ## Usage
 
@@ -39,7 +39,7 @@ require(HavenOnDemand)
 ```
 cl <- HODClient(apikey="your_api_key", version="v1")
 ```
-Alternatively, you can create an empty cient first, and then call the setters:
+Alternatively, you can create an empty client first, and then call the setters:
 
 ```
 cl <- HODClient()
@@ -47,11 +47,11 @@ cl <- setHODApikey(cl, your_apikey)
 cl <- setHODVersion(cl, "v1")
 ```
 
-Note: if you are not a guru in R, please note that it's just the tradition of R for using a style of "cl <- setHODApikey(cl, value)" instead of "cl.setHODApikey(value)". The customizable object-oriented pattern (namely S4 object system: http://adv-r.had.co.nz/S4.html ) in R unfortunately can't encapsulate methods inside the class. In other APIs of this package, it follows a similar way: the return object would include a client that you can keep the track. 
+Note: if you are not a guru in R, please note that it's just the tradition of R for using a style of "cl <- setHODApikey(cl, value)" instead of "cl.setHODApikey(value)". The customizable object-oriented pattern (namely S4 object system: http://adv-r.had.co.nz/S4.html ) in R unfortunately can't encapsulate methods inside the class. In other APIs of this package, it follows a similar way: the return object would include a client that you can keep track on. 
 
 ### Sending synchronous requests 
 
-Basically, once you know the API type (e.g. querytextindex, analyzesentiment, extracttext) and the parameters it asks (check HPE official documents: https://dev.havenondemand.com/apis ), you can freely add them and form your R API call with postHODSync() :
+Basically, once you know the API type (e.g. querytextindex, analyzesentiment, extracttext) and the parameters it requires (check HPE official documents: https://dev.havenondemand.com/apis ), you can freely add them and form your R API call with postHODSync() :
 
 ```
 result <- postHODSync(cl, "querytextindex", text="California",  indexes="wiki_eng", print="all")
@@ -107,7 +107,7 @@ Check the result (if the job is ready, checkHODStatus() return contains the resu
 result <- checkHODResult(cl, "job1")
 ```
 
-Lastly, you can (optionally) delete the local job name if you want (using R API delHODJobname(cl, "job1") ). It won't automatically be removed when result is obtained because it is meant to leave the record. You can find the job id anytime using "cl$jobs".
+Lastly, you can (optionally) delete the local job name if you want (using R API delHODJobname(cl, "job1") ). It won't automatically be removed when result is obtained because it is meant to leave the record. You can find the job id anytime using "cl@jobs".
 
 ### Text index operations
 
@@ -137,6 +137,8 @@ combobj <- deleteHODTextIndex(cl, "index1")
 ### A "Hello World" demo app (from scratch, including installation and everything)
 
 ```
+> install.packages("devtools")
+> library(devtools)
 > install_github("lionelc/HavenOnDemand_R")
 > library(HavenOnDemand)
 Loading required package: RCurl
