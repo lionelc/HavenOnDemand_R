@@ -61,7 +61,7 @@ Or
 
 ```
 param <- list(text="California",  indexes="wiki_eng", print="all")
-result <- postHODSync(cl, "querytextindex", param)
+result <- postHODSync(cl, "querytextindex", params=param)
 ```
 
 The parameters can also include a file path, if it is a part of the requirement for a specific API. The return result is a JSON object.
